@@ -1,0 +1,5 @@
+VRProject/Library/
+VRProject/Temp/
+VRProject/Obj/
+*.sln
+*.csproj
