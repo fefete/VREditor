@@ -9,26 +9,40 @@ public class UpdateCollector : MonoBehaviour {
     public InputField y;
     public InputField z;
 
-    public GameObject currentGameObject;
-
     public void onValueChangePos(string temp)
     {
-        currentGameObject.transform.position = new Vector3(float.Parse(x.text), float.Parse(y.text), float.Parse(z.text));
+        float new_x = GetFloat(x.text, 0);
+        float new_y = GetFloat(y.text, 0);
+        float new_z = GetFloat(z.text, 0);
+        Manager.getInstance().getObject().transform.position = new Vector3(new_x, new_y, new_z);
     }
     public void onValueChangeRot(string temp)
     {
-        currentGameObject.transform.eulerAngles = new Vector3(float.Parse(x.text), float.Parse(y.text), float.Parse(z.text));
+        float new_x = GetFloat(x.text, 0);
+        float new_y = GetFloat(y.text, 0);
+        float new_z = GetFloat(z.text, 0);
+        Manager.getInstance().getObject().transform.rotation = Quaternion.Euler(new_x, new_y, new_z);
     }
     public void onValueChangeScale(string temp)
     {
-        currentGameObject.transform.localScale = new Vector3(float.Parse(x.text), float.Parse(y.text), float.Parse(z.text));
+        float new_x = GetFloat(x.text, 0);
+        float new_y = GetFloat(y.text, 0);
+        float new_z = GetFloat(z.text, 0);
+        Manager.getInstance().getObject().transform.localScale = new Vector3(new_x, new_y, new_z);
     }
-    public void newValues(Vector3 v, GameObject obj)
+    public void newValues(Vector3 v)
     {
         x.text = v.x.ToString();
         y.text = v.y.ToString();
         z.text = v.z.ToString();
-
-        currentGameObject = obj;
     }
+
+    private float GetFloat(string stringValue, float defaultValue)
+    {
+        float result = defaultValue;
+        float.TryParse(stringValue, out result);
+        return result;
+    }
+
+
 }
