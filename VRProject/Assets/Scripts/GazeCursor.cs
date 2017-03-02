@@ -10,7 +10,7 @@ public class GazeCursor : MonoBehaviour
     public float maxCursorDistance = 30;
     private GameObject cursorInstance;
 
-    private GameObject objLookingAt = null;
+    public GameObject objLookingAt = null;
 
     // Use this for initialization
     void Start()
@@ -35,10 +35,16 @@ public class GazeCursor : MonoBehaviour
                 }
                 else
                 {
-                    ListItem temp = objLookingAt.GetComponent<ListItem>();
-                    if (temp)
+                    if (objLookingAt.CompareTag("Inspector"))
                     {
-                        Manager.getInstance().spawnObject(temp.assetName);
+                        Manager.getInstance().inspectorArrow.SetActive(true);
+                        Manager.getInstance().inspectorArrow.GetComponent<ArrowBehaviour>().modifier = objLookingAt;
+                        Manager.getInstance().inspectorArrow.transform.position = objLookingAt.transform.position;
+
+                    }
+                    else if (objLookingAt.CompareTag("Selector"))
+                    {
+                        Manager.getInstance().spawnObject(objLookingAt.GetComponent<ListItem>().assetName);
                     }
                 }
             }
@@ -51,11 +57,16 @@ public class GazeCursor : MonoBehaviour
             objLookingAt = hit.collider.gameObject;
             if (objLookingAt.CompareTag("Inspector"))
             {
+                objLookingAt.GetComponent<InspectorItem>().onGazeIn();
 
             }
             else if (objLookingAt.CompareTag("Selector"))
             {
                 objLookingAt.GetComponent<ListItem>().onGazeIn();
+            }
+            else if (objLookingAt.CompareTag("TransformArrows"))
+            {
+                objLookingAt.GetComponent<TransformArrowScript>().onGazeIn();
             }
         }
         else
@@ -64,11 +75,15 @@ public class GazeCursor : MonoBehaviour
             {
                 if (objLookingAt.CompareTag("Inspector"))
                 {
-
+                    objLookingAt.GetComponent<InspectorItem>().onGazeOut();
                 }
                 else if (objLookingAt.CompareTag("Selector"))
                 {
                     objLookingAt.GetComponent<ListItem>().onGazeOut();
+                }
+                else if (objLookingAt.CompareTag("TransformArrows"))
+                {
+                    objLookingAt.GetComponent<TransformArrowScript>().onGazeOut();
                 }
             }
             cursorInstance.transform.position = ray.origin + ray.direction.normalized * maxCursorDistance;

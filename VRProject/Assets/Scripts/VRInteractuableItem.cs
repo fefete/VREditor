@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public interface VRInteractuable {
+public interface IVRInteractuable {
 
     void onGazeIn();
     void onGazeOver();

@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class ListItem : MonoBehaviour, VRInteractuable {
+public class ListItem : MonoBehaviour, IVRInteractuable {
 
     public string assetName;
     public ScrollView scview;
@@ -25,12 +25,10 @@ public class ListItem : MonoBehaviour, VRInteractuable {
     }
 
     public void onGazeIn() {
-        Debug.Log("GAZE IN");
     }
     public void onGazeOver() {
     }
     public void onGazeOut() {
-        Debug.Log("GAZE OUT");
 
     }
 

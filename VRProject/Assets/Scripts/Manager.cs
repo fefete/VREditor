@@ -24,6 +24,8 @@ public class Manager : MonoBehaviour
 
     public Camera UiCamera;
 
+    public GameObject inspectorArrow;
+
     // Use this for initialization
 
     private void Start()
