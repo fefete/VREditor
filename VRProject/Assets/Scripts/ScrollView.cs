@@ -45,11 +45,19 @@ public class ScrollView : MonoBehaviour {
 
     private void InitializeNewItem(string name)
     {
-        GameObject newItem = Instantiate(item, glgroup.transform) as GameObject;
+        GameObject newItem = Instantiate(item, glgroup.transform);       
         newItem.name = name;
-        //newItem.transform.parent = glgroup.transform;
+        newItem.transform.localPosition = Vector3.zero;
+        newItem.transform.localRotation = Quaternion.Euler(Vector3.zero);
         newItem.transform.localScale = Vector3.one;
+
+        newItem.GetComponent<Image>().enabled = true;
+        newItem.GetComponentInChildren<Text>(true).text = name;
+        newItem.GetComponentInChildren<Text>().enabled = true;
+
         newItem.SetActive(true);
+
+
     }
 
     private IEnumerator MoveTowardsTarget(float time, float from, float target)

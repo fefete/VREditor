@@ -22,6 +22,8 @@ public class Manager : MonoBehaviour
 
     AssetBundle myLoadedBundle;
 
+    public Camera UiCamera;
+
     // Use this for initialization
 
     private void Start()
@@ -32,6 +34,13 @@ public class Manager : MonoBehaviour
     {
         if (instance == null)
         {
+            UiCamera.clearFlags = CameraClearFlags.Nothing;
+            // Find canvases in the scene and assign our custom UICamera to them
+            Canvas[] canvases = Resources.FindObjectsOfTypeAll<Canvas>();
+            foreach (Canvas canvas in canvases)
+            {
+                canvas.worldCamera = UiCamera;
+            }
             prefab_dict = new Dictionary<string, GameObject>();
             StartCoroutine( LoadAssetBundleOnApp() );
             instance = this;

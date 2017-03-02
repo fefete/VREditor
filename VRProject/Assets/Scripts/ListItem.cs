@@ -5,24 +5,33 @@ using UnityEngine.UI;
 
 public class ListItem : MonoBehaviour {
 
-    public Text assetName;
+    public string assetName;
     public ScrollView scview;
-    private bool init = false;
-    
+    public GameObject ob_to_look_at;
+
+        
     // Use this for initialization
-    void Update()
-    {
-        if (!init)
-        {
-            assetName.text = transform.name;
-            GetComponent<Text>().text = transform.name;
-            init = true;
-        }
-    }
     // Update is called once per frame
     public void OnRemoveMe()
     {
         DestroyImmediate(gameObject);
         scview.setContentHeight();
+    }
+
+    public void OnMouseOver()
+    {
+        Debug.LogWarning(gameObject.name);
+        GetComponentInParent<Image>().color = Color.red;
+    }
+
+    public void OnMouseExit()
+    {
+        Debug.LogWarning(gameObject.name);
+        GetComponentInParent<Image>().color = Color.green;
+    }
+
+    public void LateUpdate()
+    {
+        //GetComponent<BoxCollider2D>().transform.LookAt(ob_to_look_at.transform);
     }
 }
