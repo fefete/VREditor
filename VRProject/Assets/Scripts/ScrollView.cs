@@ -54,6 +54,8 @@ public class ScrollView : MonoBehaviour {
         newItem.GetComponent<Image>().enabled = true;
         newItem.GetComponentInChildren<Text>(true).text = name;
         newItem.GetComponentInChildren<Text>().enabled = true;
+        newItem.GetComponentInChildren<ListItem>().scview = this;
+        newItem.GetComponentInChildren<ListItem>().assetName = name;
 
         newItem.SetActive(true);
 
