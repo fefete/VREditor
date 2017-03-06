@@ -3,7 +3,8 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class UpdateCollector : MonoBehaviour {
+public class UpdateCollector : MonoBehaviour
+{
 
     public InputField x;
     public InputField y;
@@ -14,21 +15,24 @@ public class UpdateCollector : MonoBehaviour {
         float new_x = GetFloat(x.text, 0);
         float new_y = GetFloat(y.text, 0);
         float new_z = GetFloat(z.text, 0);
-        Manager.getInstance().getObject().transform.position = new Vector3(new_x, new_y, new_z);
+        if (Manager.getInstance().getObject() != null)
+            Manager.getInstance().getObject().transform.position = new Vector3(new_x, new_y, new_z);
     }
     public void onValueChangeRot(string temp)
     {
         float new_x = GetFloat(x.text, 0);
         float new_y = GetFloat(y.text, 0);
         float new_z = GetFloat(z.text, 0);
-        Manager.getInstance().getObject().transform.rotation = Quaternion.Euler(new_x, new_y, new_z);
+        if (Manager.getInstance().getObject() != null)
+            Manager.getInstance().getObject().transform.rotation = Quaternion.Euler(new_x, new_y, new_z);
     }
     public void onValueChangeScale(string temp)
     {
         float new_x = GetFloat(x.text, 0);
         float new_y = GetFloat(y.text, 0);
         float new_z = GetFloat(z.text, 0);
-        Manager.getInstance().getObject().transform.localScale = new Vector3(new_x, new_y, new_z);
+        if (Manager.getInstance().getObject() != null)
+            Manager.getInstance().getObject().transform.localScale = new Vector3(new_x, new_y, new_z);
     }
     public void newValues(Vector3 v)
     {

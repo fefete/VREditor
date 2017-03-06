@@ -22,6 +22,25 @@ public class GazeCursor : MonoBehaviour
     void Update()
     {
         UpdateCursor();
+        if (objLookingAt != null)
+        {
+            if (objLookingAt.CompareTag("Inspector"))
+            {
+                objLookingAt.GetComponent<InspectorItem>().onGazeOver();
+            }
+            else if (objLookingAt.CompareTag("Selector"))
+            {
+                objLookingAt.GetComponent<ListItem>().onGazeOver();
+            }
+            else if (objLookingAt.CompareTag("TransformArrows"))
+            {
+                objLookingAt.GetComponent<TransformArrowScript>().onGazeOver();
+            }
+            else if (objLookingAt.CompareTag("KeyboardItem"))
+            {
+                objLookingAt.GetComponent<KeyboardItem>().onGazeOver();
+            }
+        }
     }
     private void UpdateCursor()
     {
@@ -40,11 +59,15 @@ public class GazeCursor : MonoBehaviour
                         Manager.getInstance().inspectorArrow.SetActive(true);
                         Manager.getInstance().inspectorArrow.GetComponent<ArrowBehaviour>().modifier = objLookingAt;
                         Manager.getInstance().inspectorArrow.transform.position = objLookingAt.transform.position;
-
                     }
                     else if (objLookingAt.CompareTag("Selector"))
                     {
-                        Manager.getInstance().spawnObject(objLookingAt.GetComponent<ListItem>().assetName);
+                        objLookingAt.GetComponent<ListItem>().action();
+                    }
+                    else if (objLookingAt.CompareTag("KeyboardItem"))
+                    {
+                        objLookingAt.GetComponent<KeyboardItem>().action();
+
                     }
                 }
             }
@@ -53,20 +76,27 @@ public class GazeCursor : MonoBehaviour
         RaycastHit hit;
         if (Physics.Raycast(ray, out hit, Mathf.Infinity))
         {
+         
             cursorInstance.transform.position = hit.point;
             objLookingAt = hit.collider.gameObject;
             if (objLookingAt.CompareTag("Inspector"))
             {
                 objLookingAt.GetComponent<InspectorItem>().onGazeIn();
-
             }
             else if (objLookingAt.CompareTag("Selector"))
             {
                 objLookingAt.GetComponent<ListItem>().onGazeIn();
+
             }
             else if (objLookingAt.CompareTag("TransformArrows"))
             {
                 objLookingAt.GetComponent<TransformArrowScript>().onGazeIn();
+
+            }
+            else if (objLookingAt.CompareTag("KeyboardItem"))
+            {
+                objLookingAt.GetComponent<KeyboardItem>().onGazeIn();
+
             }
         }
         else
@@ -76,14 +106,22 @@ public class GazeCursor : MonoBehaviour
                 if (objLookingAt.CompareTag("Inspector"))
                 {
                     objLookingAt.GetComponent<InspectorItem>().onGazeOut();
+
                 }
                 else if (objLookingAt.CompareTag("Selector"))
                 {
                     objLookingAt.GetComponent<ListItem>().onGazeOut();
+
                 }
                 else if (objLookingAt.CompareTag("TransformArrows"))
                 {
                     objLookingAt.GetComponent<TransformArrowScript>().onGazeOut();
+
+                }
+                else if (objLookingAt.CompareTag("KeyboardItem"))
+                {
+                    objLookingAt.GetComponent<KeyboardItem>().onGazeOut();
+
                 }
             }
             cursorInstance.transform.position = ray.origin + ray.direction.normalized * maxCursorDistance;

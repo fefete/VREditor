@@ -8,4 +8,6 @@ public interface IVRInteractuable {
     void onGazeOver();
     void onGazeOut();
 
+    void action();
+
 }

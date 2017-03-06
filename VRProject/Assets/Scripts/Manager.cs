@@ -7,7 +7,7 @@ public class Manager : MonoBehaviour
 
     static Manager instance = null;
     public GameObject obj_in_use;
-    public bool has_to_reset_values;
+    //public bool has_to_reset_values;
 
     public UpdateCollector pos;
     public UpdateCollector rot;
@@ -15,6 +15,7 @@ public class Manager : MonoBehaviour
 
     public GameObject inspector_ui_;
     public GameObject selection_ui_;
+    public GameObject keyboard_ui_;
 
     public Dictionary<string, GameObject> prefab_dict;
 
@@ -30,23 +31,17 @@ public class Manager : MonoBehaviour
 
     private void Start()
     {
+        removeObject();
     }
 
     void Awake()
     {
         if (instance == null)
         {
-            UiCamera.clearFlags = CameraClearFlags.Nothing;
-            // Find canvases in the scene and assign our custom UICamera to them
-            Canvas[] canvases = Resources.FindObjectsOfTypeAll<Canvas>();
-            foreach (Canvas canvas in canvases)
-            {
-                canvas.worldCamera = UiCamera;
-            }
             prefab_dict = new Dictionary<string, GameObject>();
             StartCoroutine( LoadAssetBundleOnApp() );
             instance = this;
-            removeObject();
+
         }
         else if (instance != this)
         {
@@ -67,11 +62,13 @@ public class Manager : MonoBehaviour
 
     public void removeObject()
     {
+
+        obj_in_use = null;
         pos.newValues(new Vector3(0, 0, 0));
         rot.newValues(new Vector3(0, 0, 0));
         sca.newValues(new Vector3(0, 0, 0));
-        obj_in_use = null;
         inspector_ui_.SetActive(false);
+        keyboard_ui_.SetActive(false);
         selection_ui_.SetActive(true);
     }
 
@@ -81,6 +78,7 @@ public class Manager : MonoBehaviour
         pos.newValues(obj_in_use.transform.position);
         rot.newValues(obj_in_use.transform.rotation.eulerAngles);
         sca.newValues(obj_in_use.transform.localScale);
+        keyboard_ui_.SetActive(true);
         inspector_ui_.SetActive(true);
         selection_ui_.SetActive(false);
     }

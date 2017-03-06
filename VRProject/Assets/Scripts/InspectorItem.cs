@@ -16,20 +16,17 @@ public class InspectorItem : MonoBehaviour, IVRInteractuable {
 
     public void onGazeIn()
     {
-        //Manager.getInstance().inspectorArrow.SetActive(true);
-        //       Manager.getInstance().inspectorArrow.transform.position = transform.position;
 
-        //        Manager.getInstance().inspectorArrow.transform.SetParent(transform);
-        //        Manager.getInstance().inspectorArrow.transform.localPosition = Vector3.zero;
-        //        Manager.getInstance().inspectorArrow.transform.localPosition = new Vector3(GetComponent<RectTransform>().sizeDelta.x / 2, -GetComponent<RectTransform>().sizeDelta.y, 0);
     }
     public void onGazeOver()
     {
     }
     public void onGazeOut()
     {
-        //Manager.getInstance().inspectorArrow.SetActive(false);
 
+    }
 
+    public void action()
+    {
     }
 }

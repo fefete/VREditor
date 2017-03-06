@@ -13,7 +13,6 @@ public class ListItem : MonoBehaviour, IVRInteractuable {
     {
         Vector2 vec2ScreenPoint = new Vector2(transform.position.x, transform.position.y);
         if (RectTransformUtility.RectangleContainsScreenPoint(scview.GetComponent<RectTransform>(), vec2ScreenPoint)) {
-            //Debug.Log("Potato" + assetName);
             GetComponent<BoxCollider>().enabled = true;
 
         }
@@ -30,6 +29,12 @@ public class ListItem : MonoBehaviour, IVRInteractuable {
     }
     public void onGazeOut() {
 
+    }
+
+
+    public void action()
+    {
+        Manager.getInstance().spawnObject(assetName);
     }
 
 }
