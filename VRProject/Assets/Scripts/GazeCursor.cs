@@ -74,9 +74,9 @@ public class GazeCursor : MonoBehaviour
         }
         Ray ray = new Ray(viewCamera.transform.position, viewCamera.transform.rotation * Vector3.forward);
         RaycastHit hit;
-        if (Physics.Raycast(ray, out hit, Mathf.Infinity))
+        LayerMask layer = ~LayerMask.NameToLayer("UI");
+        if (Physics.Raycast(ray, out hit, Mathf.Infinity, layer))
         {
-         
             cursorInstance.transform.position = hit.point;
             objLookingAt = hit.collider.gameObject;
             if (objLookingAt.CompareTag("Inspector"))
@@ -98,6 +98,9 @@ public class GazeCursor : MonoBehaviour
                 objLookingAt.GetComponent<KeyboardItem>().onGazeIn();
 
             }
+        } else if (Physics.Raycast(ray, out hit, Mathf.Infinity)) {
+            cursorInstance.transform.position = hit.point;
+            objLookingAt = hit.collider.gameObject;
         }
         else
         {
