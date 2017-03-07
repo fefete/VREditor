@@ -9,6 +9,10 @@ public class Manager : MonoBehaviour
     public GameObject obj_in_use;
     //public bool has_to_reset_values;
 
+    public string material_bundle_name;
+    public string prefab_bundle_name;
+    public string scene_bundle_name;
+
     public UpdateCollector pos;
     public UpdateCollector rot;
     public UpdateCollector sca;
@@ -18,6 +22,8 @@ public class Manager : MonoBehaviour
     public GameObject keyboard_ui_;
 
     public Dictionary<string, GameObject> prefab_dict;
+    public Dictionary<string, Material> mat_dict;
+    public Dictionary<string, GameObject> scenes_dict;
 
     public ScrollView dataShowing;
 
@@ -39,7 +45,11 @@ public class Manager : MonoBehaviour
         if (instance == null)
         {
             prefab_dict = new Dictionary<string, GameObject>();
-            StartCoroutine( LoadAssetBundleOnApp() );
+            mat_dict = new Dictionary<string, Material>();
+            //prefab_dict = new Dictionary<string, GameObject>();
+            StartCoroutine( LoadAssetBundleOnApp(material_bundle_name, "material") );
+            StartCoroutine( LoadAssetBundleOnApp(prefab_bundle_name, "prefab") );
+            //StartCoroutine( LoadAssetBundleOnApp(scene_bundle_name, "scenes") );
             instance = this;
 
         }
@@ -100,10 +110,10 @@ public class Manager : MonoBehaviour
         removeObject();
         setObject(go);
     }
-
-    IEnumerator LoadAssetBundleOnApp()
+    //"/AssetBundles/assetstoimport"
+    IEnumerator LoadAssetBundleOnApp(string file, string type)
     {
-        WWW www = WWW.LoadFromCacheOrDownload("File://" + Application.dataPath + "/AssetBundles/assetstoimport", 2);
+        WWW www = WWW.LoadFromCacheOrDownload("File://" + Application.dataPath + file, 2);
 
         print("Loading");
 
@@ -118,11 +128,30 @@ public class Manager : MonoBehaviour
 
         myLoadedBundle = www.assetBundle;
 
-        GameObject[] loadedObjs_obj = myLoadedBundle.LoadAllAssets<GameObject>();
-        for(int i = 0; i < loadedObjs_obj.Length; i++)
-        {
-            prefab_dict.Add(loadedObjs_obj[i].name, loadedObjs_obj[i]);
+
+        if (type == "prefab") {
+            GameObject[] loadedObjs_obj = myLoadedBundle.LoadAllAssets<GameObject>();
+            for (int i = 0; i < loadedObjs_obj.Length; i++)
+            {
+                prefab_dict.Add(loadedObjs_obj[i].name, loadedObjs_obj[i]);
+            }
         }
+        if (type == "material")
+        {
+            Material[] loadedObjs_obj = myLoadedBundle.LoadAllAssets<Material>();
+            for (int i = 0; i < loadedObjs_obj.Length; i++)
+            {
+                mat_dict.Add(loadedObjs_obj[i].name, loadedObjs_obj[i]);
+            }
+        }
+        if (type == "scenes")
+        {
+            /*for (int i = 0; i < loadedObjs_obj.Length; i++)
+            {
+               scenes_dict.Add(loadedObjs_obj[i].name, loadedObjs_obj[i]);
+            }*/
+        }
+
 
         dataShowing.InitializeList();
 
