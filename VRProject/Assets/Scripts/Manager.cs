@@ -23,7 +23,7 @@ public class Manager : MonoBehaviour
 
     public Dictionary<string, GameObject> prefab_dict;
     public Dictionary<string, Material> mat_dict;
-    public Dictionary<string, GameObject> scenes_dict;
+    public string[] scenes_dict;
 
     public ScrollView dataShowing;
 
@@ -49,7 +49,7 @@ public class Manager : MonoBehaviour
             //prefab_dict = new Dictionary<string, GameObject>();
             StartCoroutine( LoadAssetBundleOnApp(material_bundle_name, "material") );
             StartCoroutine( LoadAssetBundleOnApp(prefab_bundle_name, "prefab") );
-            //StartCoroutine( LoadAssetBundleOnApp(scene_bundle_name, "scenes") );
+            StartCoroutine( LoadAssetBundleOnApp(scene_bundle_name, "scenes") );
             instance = this;
 
         }
@@ -146,10 +146,7 @@ public class Manager : MonoBehaviour
         }
         if (type == "scenes")
         {
-            /*for (int i = 0; i < loadedObjs_obj.Length; i++)
-            {
-               scenes_dict.Add(loadedObjs_obj[i].name, loadedObjs_obj[i]);
-            }*/
+            scenes_dict = myLoadedBundle.GetAllScenePaths();
         }
 
 
