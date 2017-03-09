@@ -19,14 +19,18 @@ public class Manager : MonoBehaviour
     public UpdateCollector sca;
 
     public GameObject inspector_ui_;
-    public GameObject selection_ui_;
+    public GameObject mat_selection_ui_;
+    public GameObject scene_selection_ui_;
+    public GameObject prefab_selection_ui_;
     public GameObject keyboard_ui_;
 
     public Dictionary<string, GameObject> prefab_dict;
     public Dictionary<string, Material> mat_dict;
     public string[] scenes_dict;
 
-    public ScrollView dataShowing;
+    public ScrollView prefabDataShowing;
+    public ScrollView sceneDataShowing;
+    public ScrollView materialDataShowing;
 
     AssetBundle myLoadedBundle;
 
@@ -38,7 +42,13 @@ public class Manager : MonoBehaviour
 
     private void Start()
     {
-        removeObject();
+        //removeObject();
+        inspector_ui_.SetActive(false);
+        keyboard_ui_.SetActive(false);
+        prefab_selection_ui_.SetActive(false);
+        mat_selection_ui_.SetActive(false);
+        scene_selection_ui_.SetActive(true);
+
     }
 
     void Awake()
@@ -49,10 +59,11 @@ public class Manager : MonoBehaviour
             prefab_dict = new Dictionary<string, GameObject>();
             mat_dict = new Dictionary<string, Material>();
             //prefab_dict = new Dictionary<string, GameObject>();
-            StartCoroutine( LoadAssetBundleOnApp(material_bundle_name, "material") );
-            StartCoroutine( LoadAssetBundleOnApp(prefab_bundle_name, "prefab") );
-            StartCoroutine( LoadAssetBundleOnApp(scene_bundle_name, "scenes") );
+            StartCoroutine(LoadAssetBundleOnApp(material_bundle_name, "material"));
+            StartCoroutine(LoadAssetBundleOnApp(prefab_bundle_name, "prefab"));
+            StartCoroutine(LoadAssetBundleOnApp(scene_bundle_name, "scenes"));
             instance = this;
+            obj_in_use = null;
 
         }
         else if (instance != this)
@@ -71,7 +82,6 @@ public class Manager : MonoBehaviour
         }
         if (Input.GetKeyDown(KeyCode.P))
         {
-            SceneManager.LoadScene("testscene");
         }
 
     }
@@ -84,8 +94,9 @@ public class Manager : MonoBehaviour
         rot.newValues(new Vector3(0, 0, 0));
         sca.newValues(new Vector3(0, 0, 0));
         inspector_ui_.SetActive(false);
+        mat_selection_ui_.SetActive(false);
         keyboard_ui_.SetActive(false);
-        selection_ui_.SetActive(true);
+        prefab_selection_ui_.SetActive(true);
     }
 
     public void setObject(GameObject obj)
@@ -96,7 +107,9 @@ public class Manager : MonoBehaviour
         sca.newValues(obj_in_use.transform.localScale);
         keyboard_ui_.SetActive(true);
         inspector_ui_.SetActive(true);
-        selection_ui_.SetActive(false);
+        mat_selection_ui_.SetActive(true);
+        inspector_ui_.SetActive(true);
+        prefab_selection_ui_.SetActive(false);
     }
 
     public GameObject getObject()
@@ -115,6 +128,13 @@ public class Manager : MonoBehaviour
         GameObject go = Instantiate(prefab_dict[obj]);
         removeObject();
         setObject(go);
+    }
+
+    public void loadScene(string scene)
+    {
+        scene_selection_ui_.SetActive(false);
+        prefab_selection_ui_.SetActive(true);
+        SceneManager.LoadScene(scene);
     }
     //"/AssetBundles/assetstoimport"
     IEnumerator LoadAssetBundleOnApp(string file, string type)
@@ -135,28 +155,31 @@ public class Manager : MonoBehaviour
         myLoadedBundle = www.assetBundle;
 
 
-        if (type == "prefab") {
+        if (type == "prefab")
+        {
             GameObject[] loadedObjs_obj = myLoadedBundle.LoadAllAssets<GameObject>();
             for (int i = 0; i < loadedObjs_obj.Length; i++)
             {
                 prefab_dict.Add(loadedObjs_obj[i].name, loadedObjs_obj[i]);
             }
+            prefabDataShowing.InitializeList(type);
+
         }
-        if (type == "material")
+        else if (type == "material")
         {
             Material[] loadedObjs_obj = myLoadedBundle.LoadAllAssets<Material>();
             for (int i = 0; i < loadedObjs_obj.Length; i++)
             {
                 mat_dict.Add(loadedObjs_obj[i].name, loadedObjs_obj[i]);
             }
+            materialDataShowing.InitializeList(type);
+
         }
-        if (type == "scenes")
+        else if (type == "scenes")
         {
             scenes_dict = myLoadedBundle.GetAllScenePaths();
+            sceneDataShowing.InitializeList(type);
         }
-
-
-        dataShowing.InitializeList();
 
         www.Dispose();
     }

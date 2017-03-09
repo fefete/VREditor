@@ -9,6 +9,8 @@ public class ScrollView : MonoBehaviour {
     public GridLayoutGroup glgroup;
     public RectTransform scrollContent;
     public ScrollRect scroll;
+    // if is a prefabs, material or scene list.
+    public string listType;
 
      void OnEnable()
      {
@@ -32,18 +34,37 @@ public class ScrollView : MonoBehaviour {
         scrollContent.sizeDelta = new Vector2(scrollContent.sizeDelta.x, scrollContentHeight);
     }
 
-    public void InitializeList()
+    public void InitializeList(string type)
     {
         ClearOldElements();
-        foreach(KeyValuePair<string, GameObject> entry in Manager.getInstance().prefab_dict)
-        {
-            InitializeNewItem(entry.Key);
-        }
 
+        if (type == "prefab")
+        {
+            foreach (KeyValuePair<string, GameObject> entry in Manager.getInstance().prefab_dict)
+            {
+                InitializeNewItem(entry.Key, type);
+            }
+
+        }
+        else if (type == "material")
+        {
+            foreach (KeyValuePair<string, Material> entry in Manager.getInstance().mat_dict)
+            {
+                InitializeNewItem(entry.Key, type);
+            }
+        }
+        else if(type == "scenes")
+        {
+            foreach (string n in Manager.getInstance().scenes_dict)
+            {
+                InitializeNewItem(n, type);
+            }
+
+        }
         setContentHeight();
     }
 
-    private void InitializeNewItem(string name)
+    private void InitializeNewItem(string name, string type)
     {
         GameObject newItem = Instantiate(item, glgroup.transform);       
         newItem.name = name;
@@ -56,6 +77,7 @@ public class ScrollView : MonoBehaviour {
         newItem.GetComponentInChildren<Text>().enabled = true;
         newItem.GetComponentInChildren<ListItem>().scview = this;
         newItem.GetComponentInChildren<ListItem>().assetName = name;
+        newItem.GetComponentInChildren<ListItem>().type = type;
 
         newItem.SetActive(true);
 

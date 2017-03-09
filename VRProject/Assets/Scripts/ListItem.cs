@@ -8,6 +8,7 @@ public class ListItem : MonoBehaviour, IVRInteractuable {
     public string assetName;
     public ScrollView scview;
     public GameObject ob_to_look_at;
+    public string type;
 
     public void LateUpdate()
     {
@@ -34,7 +35,22 @@ public class ListItem : MonoBehaviour, IVRInteractuable {
 
     public void action()
     {
-        Manager.getInstance().spawnObject(assetName);
+        if (type == "prefab")
+        {
+            Manager.getInstance().spawnObject(assetName);
+
+        }
+        else if (type == "material")
+        {
+            Manager.getInstance().obj_in_use.GetComponent<Renderer>().material = Manager.getInstance().mat_dict[assetName];
+
+        }
+        else if (type == "scenes")
+        {
+
+            Manager.getInstance().loadScene(assetName);
+
+        }
     }
 
 }
