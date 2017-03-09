@@ -2,6 +2,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine.SceneManagement;
+using UnityEngine.UI;
 
 public class Manager : MonoBehaviour
 {
@@ -58,7 +59,6 @@ public class Manager : MonoBehaviour
             DontDestroyOnLoad(this);
             prefab_dict = new Dictionary<string, GameObject>();
             mat_dict = new Dictionary<string, Material>();
-            //prefab_dict = new Dictionary<string, GameObject>();
             StartCoroutine(LoadAssetBundleOnApp(material_bundle_name, "material"));
             StartCoroutine(LoadAssetBundleOnApp(prefab_bundle_name, "prefab"));
             StartCoroutine(LoadAssetBundleOnApp(scene_bundle_name, "scenes"));
@@ -82,6 +82,11 @@ public class Manager : MonoBehaviour
         }
         if (Input.GetKeyDown(KeyCode.P))
         {
+            prefab_selection_ui_.GetComponentInChildren<Scrollbar>().value = prefab_selection_ui_.GetComponentInChildren<Scrollbar>().value + 0.1f;
+        }
+        if (Input.GetKeyDown(KeyCode.O))
+        {
+            prefab_selection_ui_.GetComponentInChildren<Scrollbar>().value = prefab_selection_ui_.GetComponentInChildren<Scrollbar>().value + 0.1f;
         }
 
     }

@@ -8,9 +8,14 @@ public class ArrowBehaviour : MonoBehaviour {
     public GameObject botArrow;
 
     public GameObject modifier;
+
+    public Material onInMaterial;
+    public Material onOverMaterial;
+    public Material onOutMaterial;
+
+
     // Use this for initialization
 
-	
 
 
 

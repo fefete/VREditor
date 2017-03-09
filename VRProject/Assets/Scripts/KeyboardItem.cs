@@ -16,7 +16,7 @@ public class KeyboardItem : MonoBehaviour, IVRInteractuable {
 
     public void onGazeIn()
     {
-        Debug.Log("GAZE IN");
+        Debug.Log("GAZE IN"); 
         gaze_in = true;
 
     }
