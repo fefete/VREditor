@@ -4,20 +4,14 @@ using UnityEngine;
 
 public class GazeCursor : MonoBehaviour
 {
-
+    //static GazeCursor instance = null;
     public Camera viewCamera;
-    public GameObject cursorPrefab;
     public float maxCursorDistance = 30;
-    private GameObject cursorInstance;
+    public GameObject cursorInstance;
 
     public GameObject objLookingAt = null;
 
     // Use this for initialization
-    void Start()
-    {
-        cursorInstance = Instantiate(cursorPrefab);
-    }
-
     // Update is called once per frame
     void Update()
     {
@@ -98,7 +92,9 @@ public class GazeCursor : MonoBehaviour
                 objLookingAt.GetComponent<KeyboardItem>().onGazeIn();
 
             }
-        } else if (Physics.Raycast(ray, out hit, Mathf.Infinity)) {
+        }
+        else if (Physics.Raycast(ray, out hit, Mathf.Infinity))
+        {
             cursorInstance.transform.position = hit.point;
             objLookingAt = hit.collider.gameObject;
         }

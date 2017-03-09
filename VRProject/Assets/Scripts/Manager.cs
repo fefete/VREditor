@@ -1,6 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
+using UnityEngine.SceneManagement;
 
 public class Manager : MonoBehaviour
 {
@@ -44,6 +45,7 @@ public class Manager : MonoBehaviour
     {
         if (instance == null)
         {
+            DontDestroyOnLoad(this);
             prefab_dict = new Dictionary<string, GameObject>();
             mat_dict = new Dictionary<string, Material>();
             //prefab_dict = new Dictionary<string, GameObject>();
@@ -66,6 +68,10 @@ public class Manager : MonoBehaviour
         if (Input.GetKeyDown("escape"))
         {
             removeObject();
+        }
+        if (Input.GetKeyDown(KeyCode.P))
+        {
+            SceneManager.LoadScene("testscene");
         }
 
     }

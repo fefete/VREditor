@@ -8,6 +8,7 @@ public class movement : MonoBehaviour {
     public float keySpeed = 10;
     public float mouseSpeed = 1.25f;
     public GameObject eye;
+    static movement instance = null;
 
     private Quaternion originalRotation;
     private Vector2 angle = new Vector2(0f, 0f);
@@ -15,9 +16,19 @@ public class movement : MonoBehaviour {
     private Vector2 maxAngle = new Vector2(360f, 90f);
     private float limit = 360f;
     void Start () {
-        Cursor.lockState = CursorLockMode.Locked;
-        Cursor.visible = false;
-        originalRotation = transform.localRotation;
+        if (instance == null)
+        {
+            instance = this;
+            Cursor.lockState = CursorLockMode.Locked;
+            Cursor.visible = false;
+            originalRotation = transform.localRotation;
+
+        }
+        else if (instance != this)
+        {
+            Destroy(gameObject);
+        }
+
     }
 	
 	// Update is called once per frame

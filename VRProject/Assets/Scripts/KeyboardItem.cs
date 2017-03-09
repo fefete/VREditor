@@ -9,23 +9,10 @@ public class KeyboardItem : MonoBehaviour, IVRInteractuable {
     private double timer;
     public string value;
 
-       /*Debug.Log(timer);
-       // if (gaze_in) Debug.Log(timer);
-        if (gaze_in && Input.GetButtonDown("Fire1")) {
-            InputField f = Manager.getInstance().inspectorArrow.GetComponent<ArrowBehaviour>().modifier.GetComponent<InputField>();
-            float final_value = 0;
-            if (value == "del") {
-                f.text.Remove(f.text.Length - 1);
-            }
-            else if (value == ",") {
-                f.text.Insert(f.text.Length - 1, ",");
-
-            }
-            else {
-                final_value = float.Parse(f.text);
-            }
-            f.text = final_value.ToString();
-        }*/
+    private void OnEnable()
+    {
+        GetComponentInChildren<Text>().text = value;
+    }
 
     public void onGazeIn()
     {
