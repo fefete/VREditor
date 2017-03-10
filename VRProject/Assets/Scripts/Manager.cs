@@ -79,17 +79,6 @@ public class Manager : MonoBehaviour
         {
             removeObject();
         }
-        if (Input.GetButton("RB"))
-        {
-
-            //Debug.Log(prefabDataShowing.GetComponent<ScrollRect>().verticalNormalizedPosition);
-               prefabDataShowing.GetComponent<ScrollRect>().verticalNormalizedPosition += Time.deltaTime;
-        }
-        if (Input.GetButton("LB"))
-        {
-               prefabDataShowing.GetComponent<ScrollRect>().verticalNormalizedPosition -=  Time.deltaTime;
-        }
-
     }
 
     public void removeObject()

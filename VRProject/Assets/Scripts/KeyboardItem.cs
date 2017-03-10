@@ -20,33 +20,31 @@ public class KeyboardItem : MonoBehaviour, IVRInteractuable {
     {
         Debug.Log("GAZE IN"); 
         gaze_in = true;
+        //GetComponent<Image>().material = GetComponentInParent<KeyboardDataManager>().onOverMaterial;
+        //GetComponent<Image>().material.color = Color.grey;
 
     }
     public void onGazeOver()
     {
-        if (timer > 1.5)
-        {
-
-        }
-        else
-        {
-            timer += Time.deltaTime;
-        }
+        //GetComponent<Image>().material = GetComponentInParent<KeyboardDataManager>().onOverMaterial;
     }
     public void onGazeOut()
     {
         Debug.Log("GAZE OUT");
         gaze_in = false;
         timer = 0.0f;
+        //GetComponent<Image>().material = GetComponentInParent<KeyboardDataManager>().onOutMaterial;
+        //GetComponent<Image>().material.color = Color.black;
+
     }
 
 
     public void action()
     {
-        InputField f = Manager.getInstance().inspectorArrow.GetComponent<ArrowBehaviour>().modifier.GetComponent<InputField>();
+        InputField f = Manager.getInstance().inspectorArrow.GetComponent<ArrowDataManager>().modifier.GetComponent<InputField>();
         f.ActivateInputField();
         string final_value = "0";
-        if (value == "del")
+        if (value == "del" && f.text.Length > 0)
         {
             f.text = f.text.Remove(f.text.Length - 1, 1);
         }
@@ -64,10 +62,9 @@ public class KeyboardItem : MonoBehaviour, IVRInteractuable {
             final_value = f.text + value;
             f.text = final_value;
         }
-        //while (f.text.StartsWith("0") && !f.text.Contains(".")) {
         if (f.text.StartsWith("0") && !f.text.Contains(".") && f.text.Length > 1)
             f.text = f.text.Remove(0, 1);
-        //}
+
         f.DeactivateInputField();
     }
 }

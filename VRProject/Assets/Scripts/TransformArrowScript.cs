@@ -9,7 +9,9 @@ public class TransformArrowScript : MonoBehaviour, IVRInteractuable {
     private double timer;
 	// Use this for initialization
 	void Start () {
-        GetComponent<Image>().material = GetComponentInParent<ArrowBehaviour>().onOutMaterial;
+        if (GetComponentInParent<ArrowDataManager>()) {
+            GetComponent<Image>().material = GetComponentInParent<ArrowDataManager>().onOutMaterial;
+        }
     }
 
     // Update is called once per frame
@@ -20,7 +22,7 @@ public class TransformArrowScript : MonoBehaviour, IVRInteractuable {
 
     public void onGazeIn()
     {
-        GetComponent<Image>().material = GetComponentInParent<ArrowBehaviour>().onInMaterial;
+        GetComponent<Image>().material = GetComponentInParent<ArrowDataManager>().onInMaterial;
 
         Debug.Log("GAZE IN");
         EventSystem.current.SetSelectedGameObject(gameObject.transform.parent.gameObject);
@@ -33,11 +35,11 @@ public class TransformArrowScript : MonoBehaviour, IVRInteractuable {
 
         if (timer > 1.5)
         {
-            GetComponent<Image>().material = GetComponentInParent<ArrowBehaviour>().onOverMaterial;
-            string t = GetComponentInParent<ArrowBehaviour>().modifier.GetComponent<InputField>().text;
+            GetComponent<Image>().material = GetComponentInParent<ArrowDataManager>().onOverMaterial;
+            string t = GetComponentInParent<ArrowDataManager>().modifier.GetComponent<InputField>().text;
             float f1 = float.Parse(t);
             f1 += Time.deltaTime;
-            GetComponentInParent<ArrowBehaviour>().modifier.GetComponent<InputField>().text = f1.ToString();
+            GetComponentInParent<ArrowDataManager>().modifier.GetComponent<InputField>().text = f1.ToString();
         }
         else
         {
@@ -47,7 +49,7 @@ public class TransformArrowScript : MonoBehaviour, IVRInteractuable {
     public void onGazeOut()
     {
         Debug.Log("GAZE OUT");
-        GetComponent<Image>().material = GetComponentInParent<ArrowBehaviour>().onOutMaterial;
+        GetComponent<Image>().material = GetComponentInParent<ArrowDataManager>().onOutMaterial;
  
         gaze_in = false;
         timer = 0.0f;

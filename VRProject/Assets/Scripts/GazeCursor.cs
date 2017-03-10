@@ -51,8 +51,11 @@ public class GazeCursor : MonoBehaviour
                     if (objLookingAt.CompareTag("Inspector"))
                     {
                         Manager.getInstance().inspectorArrow.SetActive(true);
-                        Manager.getInstance().inspectorArrow.GetComponent<ArrowBehaviour>().modifier = objLookingAt;
-                        Manager.getInstance().inspectorArrow.transform.position = objLookingAt.transform.position;
+                        Manager.getInstance().inspectorArrow.GetComponent<ArrowDataManager>().modifier = objLookingAt;
+                        Vector3 newvec = new Vector3(objLookingAt.transform.position.x, objLookingAt.transform.position.y, objLookingAt.transform.position.z);
+                        newvec = newvec - new Vector3(0, 0, 0.0001f);
+                        Manager.getInstance().inspectorArrow.transform.position = newvec;
+
                     }
                     else if (objLookingAt.CompareTag("Selector"))
                     {

@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class ArrowBehaviour : MonoBehaviour {
+public class ArrowDataManager : MonoBehaviour {
 
     public GameObject topArrow;
     public GameObject botArrow;
