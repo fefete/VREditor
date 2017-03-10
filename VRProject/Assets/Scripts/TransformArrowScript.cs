@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
-
+using UnityEngine.EventSystems;
 public class TransformArrowScript : MonoBehaviour, IVRInteractuable {
 
     private bool gaze_in;
@@ -23,6 +23,7 @@ public class TransformArrowScript : MonoBehaviour, IVRInteractuable {
         GetComponent<Image>().material = GetComponentInParent<ArrowBehaviour>().onInMaterial;
 
         Debug.Log("GAZE IN");
+        EventSystem.current.SetSelectedGameObject(gameObject.transform.parent.gameObject);
         gaze_in = true;
 
     }

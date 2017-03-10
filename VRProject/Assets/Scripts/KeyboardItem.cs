@@ -11,7 +11,9 @@ public class KeyboardItem : MonoBehaviour, IVRInteractuable {
 
     private void OnEnable()
     {
-        GetComponentInChildren<Text>().text = value;
+        if (GetComponentInChildren<Text>()) {
+            GetComponentInChildren<Text>().text = value;
+        }
     }
 
     public void onGazeIn()

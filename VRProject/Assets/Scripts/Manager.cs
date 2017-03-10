@@ -64,7 +64,6 @@ public class Manager : MonoBehaviour
             StartCoroutine(LoadAssetBundleOnApp(scene_bundle_name, "scenes"));
             instance = this;
             obj_in_use = null;
-
         }
         else if (instance != this)
         {
@@ -76,17 +75,19 @@ public class Manager : MonoBehaviour
     void Update()
     {
 
-        if (Input.GetKeyDown("escape"))
+        if (Input.GetButton("Fire2"))
         {
             removeObject();
         }
-        if (Input.GetKeyDown(KeyCode.P))
+        if (Input.GetButton("RB"))
         {
-            prefab_selection_ui_.GetComponentInChildren<Scrollbar>().value = prefab_selection_ui_.GetComponentInChildren<Scrollbar>().value + 0.1f;
+
+            //Debug.Log(prefabDataShowing.GetComponent<ScrollRect>().verticalNormalizedPosition);
+               prefabDataShowing.GetComponent<ScrollRect>().verticalNormalizedPosition += Time.deltaTime;
         }
-        if (Input.GetKeyDown(KeyCode.O))
+        if (Input.GetButton("LB"))
         {
-            prefab_selection_ui_.GetComponentInChildren<Scrollbar>().value = prefab_selection_ui_.GetComponentInChildren<Scrollbar>().value + 0.1f;
+               prefabDataShowing.GetComponent<ScrollRect>().verticalNormalizedPosition -=  Time.deltaTime;
         }
 
     }

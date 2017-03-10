@@ -33,25 +33,24 @@ public class movement : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-        if (Input.GetKey(KeyCode.A))
+        if (Input.GetAxis("Horizontal") < 0)
         {
             Strafe(-keySpeed * Time.deltaTime);
-        }
-        if (Input.GetKey(KeyCode.D))
+        }else if (Input.GetAxis("Horizontal") > 0)
         {
             Strafe(keySpeed * Time.deltaTime);
         }
-        if (Input.GetKey(KeyCode.W))
+        if (Input.GetAxis("Vertical") > 0)
         {
             Fly(keySpeed * Time.deltaTime);
         }
-        if (Input.GetKey(KeyCode.S))
+        else if (Input.GetAxis("Vertical") < 0)
         {
             Fly(-keySpeed * Time.deltaTime);
         }
 
-        float dx = Input.GetAxis("Mouse X");
-        float dy = Input.GetAxis("Mouse Y");
+        float dx = Input.GetAxis("RightHorizontal");
+        float dy = Input.GetAxis("RightVertical");
         Look(new Vector2(dx, dy) * mouseSpeed);
     }
 
