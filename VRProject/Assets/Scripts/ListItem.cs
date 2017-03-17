@@ -38,11 +38,10 @@ public class ListItem : MonoBehaviour, IVRInteractuable {
         if (type == "prefab")
         {
             Manager.getInstance().spawnObject(assetName);
-
         }
         else if (type == "material")
         {
-            Manager.getInstance().obj_in_use.GetComponent<Renderer>().material = Manager.getInstance().mat_dict[assetName];
+            Manager.getInstance().changeMaterialToCurrentObject(assetName);
 
         }
         else if (type == "scenes")

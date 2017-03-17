@@ -2,7 +2,6 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine.SceneManagement;
-using UnityEngine.UI;
 
 public class Manager : MonoBehaviour
 {
@@ -28,10 +27,12 @@ public class Manager : MonoBehaviour
     public Dictionary<string, GameObject> prefab_dict;
     public Dictionary<string, Material> mat_dict;
     public string[] scenes_dict;
+    public Dictionary<int, JsonData> changelog;
 
     public ScrollView prefabDataShowing;
     public ScrollView sceneDataShowing;
     public ScrollView materialDataShowing;
+
 
     AssetBundle myLoadedBundle;
 
@@ -59,6 +60,7 @@ public class Manager : MonoBehaviour
             DontDestroyOnLoad(this);
             prefab_dict = new Dictionary<string, GameObject>();
             mat_dict = new Dictionary<string, Material>();
+            changelog = new Dictionary<int, JsonData>();
             StartCoroutine(LoadAssetBundleOnApp(material_bundle_name, "material"));
             StartCoroutine(LoadAssetBundleOnApp(prefab_bundle_name, "prefab"));
             StartCoroutine(LoadAssetBundleOnApp(scene_bundle_name, "scenes"));
@@ -78,6 +80,10 @@ public class Manager : MonoBehaviour
         if (Input.GetButton("Fire2"))
         {
             removeObject();
+        }
+        if (Input.GetKeyDown(KeyCode.H))
+        {
+            ExportChanges();
         }
     }
 
@@ -123,6 +129,22 @@ public class Manager : MonoBehaviour
         GameObject go = Instantiate(prefab_dict[obj]);
         removeObject();
         setObject(go);
+        createEntryInChangelog(go);
+
+        // name =! string.empty == new object
+        changelog[go.GetInstanceID()].obj_name = obj;
+
+    }
+
+    public void changeMaterialToCurrentObject(string mat_name)
+    {
+        obj_in_use.GetComponent<Renderer>().material = mat_dict[mat_name];
+        if (!changelog.ContainsKey(obj_in_use.GetInstanceID()))
+        {
+            createEntryInChangelog(obj_in_use);
+        }
+        changelog[obj_in_use.GetInstanceID()].mat_name = mat_name;
+
     }
 
     public void loadScene(string scene)
@@ -178,4 +200,80 @@ public class Manager : MonoBehaviour
 
         www.Dispose();
     }
+
+    private void createEntryInChangelog(GameObject obj)
+    {
+        JsonData temp = new JsonData();
+        changelog[obj.GetInstanceID()] = temp;
+
+        temp.old_x = obj.transform.position.x;
+        temp.old_y = obj.transform.position.y;
+        temp.old_z = obj.transform.position.z;
+
+        temp.t_x = obj.transform.position.x;
+        temp.t_y = obj.transform.position.y;
+        temp.t_z = obj.transform.position.z;
+
+        temp.r_x = obj.transform.rotation.x;
+        temp.r_y = obj.transform.rotation.y;
+        temp.r_z = obj.transform.rotation.z;
+
+        temp.s_x = obj.transform.localScale.x;
+        temp.s_y = obj.transform.localScale.y;
+        temp.s_z = obj.transform.localScale.z;
+
+        temp.mat_name = string.Empty;
+        temp.obj_name = string.Empty;
+
+    }
+
+    public void updateObjInUsePos(Vector3 newpos)
+    {
+        obj_in_use.transform.position = newpos;
+        if (!changelog.ContainsKey(obj_in_use.GetInstanceID()))
+        {
+            createEntryInChangelog(obj_in_use);
+        }
+        changelog[obj_in_use.GetInstanceID()].t_x = newpos.x;
+        changelog[obj_in_use.GetInstanceID()].t_y = newpos.y;
+        changelog[obj_in_use.GetInstanceID()].t_z = newpos.z;
+
+
+    }
+    public void updateObjInUseRot(Vector3 newRot)
+    {
+        obj_in_use.transform.rotation = Quaternion.Euler(newRot);
+        if (!changelog.ContainsKey(obj_in_use.GetInstanceID()))
+        {
+            createEntryInChangelog(obj_in_use);
+        }
+        changelog[obj_in_use.GetInstanceID()].r_x = newRot.x;
+        changelog[obj_in_use.GetInstanceID()].r_y = newRot.y;
+        changelog[obj_in_use.GetInstanceID()].r_z = newRot.z;
+
+
+    }
+    public void updateObjInUseSca(Vector3 newSca)
+    {
+        obj_in_use.transform.localScale = newSca;
+        if (!changelog.ContainsKey(obj_in_use.GetInstanceID()))
+        {
+            createEntryInChangelog(obj_in_use);
+        }
+        changelog[obj_in_use.GetInstanceID()].s_x = newSca.x;
+        changelog[obj_in_use.GetInstanceID()].s_y = newSca.y;
+        changelog[obj_in_use.GetInstanceID()].s_z = newSca.z;
+
+
+    }
+
+    public void ExportChanges() {
+        string finalJson = "";
+        foreach (KeyValuePair<int, JsonData> item in changelog) {
+             finalJson += JsonUtility.ToJson(item.Value);
+        }
+        string path = Application.dataPath + "/exportData.txt";
+        System.IO.File.WriteAllText(Application.dataPath + "/exportData.txt", finalJson);
+    }
 }
+    
