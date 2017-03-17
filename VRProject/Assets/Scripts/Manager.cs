@@ -268,12 +268,18 @@ public class Manager : MonoBehaviour
     }
 
     public void ExportChanges() {
-        string finalJson = "";
+        JsonData[] finalJson = new JsonData[changelog.Count];
+        finalJson.Initialize();
+        int counter = 0;
         foreach (KeyValuePair<int, JsonData> item in changelog) {
-             finalJson += JsonUtility.ToJson(item.Value);
+            finalJson[counter] = item.Value;
+            counter++;
         }
+
+        string toJson = JSonHelper.ToJson<JsonData>(finalJson);
+
         string path = Application.dataPath + "/exportData.txt";
-        System.IO.File.WriteAllText(Application.dataPath + "/exportData.txt", finalJson);
+        System.IO.File.WriteAllText(Application.dataPath + "/exportData.txt", toJson);
     }
 }
     
