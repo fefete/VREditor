@@ -1,9 +1,9 @@
 ManifestFileVersion: 0
-CRC: 1703582029
+CRC: 3956764611
 Hashes:
   AssetFileHash:
     serializedVersion: 2
-    Hash: 15cf202dcbbc5f2fa88ebc25c23ed8fc
+    Hash: 460876b842a2085bd0b40b02ed2795d0
   TypeTreeHash:
     serializedVersion: 2
     Hash: 5aebbd669b69b71c6e37ab00bc730a48
@@ -24,8 +24,8 @@ ClassTypes:
 - Class: 65
   Script: {instanceID: 0}
 Assets:
-- Assets/Content/Red.prefab
-- Assets/Content/Green.prefab
-- Assets/Content/Yellow.prefab
+- Assets/Content/Prefabs/Red.prefab
+- Assets/Content/Prefabs/Green.prefab
+- Assets/Content/Prefabs/Yellow.prefab
 Dependencies:
-- C:/Users/metra/Documents/VREditorRepo/VRProject/Assets/AssetBundles/materialbundle
+- C:/Users/s6098981/Documents/VREditor/VRProject/Assets/AssetBundles/materialbundle
