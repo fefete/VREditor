@@ -20,6 +20,7 @@ public class ImportFile : MonoBehaviour
                 //existing object
                 Vector3 oldPos = Vector3.zero;
                 float radius = (2.0f);
+                oldPos = new Vector3(data.old_x, data.old_y, data.old_z);
                 Collider[] objsInSphere = Physics.OverlapSphere(oldPos, radius);
                 if (objsInSphere.Length > 0)
                 {
