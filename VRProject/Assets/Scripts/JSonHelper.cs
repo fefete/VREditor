@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-//As unity does not allow serialization of arrays, got this http://stackoverflow.com/questions/36239705/serialize-and-deserialize-json-and-json-array-in-unity
+//As unity does not allow serialization of arrays, got this and adapted it a bit http://stackoverflow.com/questions/36239705/serialize-and-deserialize-json-and-json-array-in-unity
 
 public class JSonHelper : MonoBehaviour {
 

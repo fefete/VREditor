@@ -5,9 +5,7 @@ using System.Collections.Generic;
 public class JsonData
 {
     public int objectID;
-    /*
-    http://answers.unity3d.com/questions/383671/find-gameobject-at-position.html 
-    */
+
     public float old_x;
     public float old_y;
     public float old_z;
@@ -25,7 +23,7 @@ public class JsonData
     public float s_z;
 
     public string mat_name;
-
+    public string name;
     public string obj_name;
 
 }
