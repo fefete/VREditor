@@ -156,7 +156,8 @@ public class Manager : MonoBehaviour
     //"/AssetBundles/assetstoimport"
     IEnumerator LoadAssetBundleOnApp(string file, string type)
     {
-        WWW www = WWW.LoadFromCacheOrDownload("File://" + Application.dataPath + file, 2);
+        string path = "File://" + Application.dataPath + file;
+        WWW www = WWW.LoadFromCacheOrDownload(path, 2);
 
         print("Loading");
 
