@@ -1,0 +1,24 @@
+ManifestFileVersion: 0
+CRC: 4200791288
+Hashes:
+  AssetFileHash:
+    serializedVersion: 2
+    Hash: 6ffaee672867216446121c1567705fc9
+  TypeTreeHash:
+    serializedVersion: 2
+    Hash: 0b04a37228feb7b9c312fb0cfbaa19c4
+HashAppended: 0
+ClassTypes:
+- Class: 21
+  Script: {instanceID: 0}
+- Class: 28
+  Script: {instanceID: 0}
+- Class: 48
+  Script: {instanceID: 0}
+Assets:
+- Assets/Content/Prefabs/RadioTower/Meshes/Materials/RadioTower_FBX-01 - Default.mat
+- Assets/Content/Materials/YellowMaterial.mat
+- Assets/Content/Materials/GreenMaterial.mat
+- Assets/Content/Prefabs/RadioTower/Meshes/Materials/RadioTowerCollider_FBX-No Name.mat
+- Assets/Content/Materials/redMaterial.mat
+Dependencies: []

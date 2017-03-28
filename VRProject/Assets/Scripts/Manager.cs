@@ -57,6 +57,7 @@ public class Manager : MonoBehaviour
     {
         if (instance == null)
         {
+            Caching.CleanCache();
             DontDestroyOnLoad(this);
             prefab_dict = new Dictionary<string, GameObject>();
             mat_dict = new Dictionary<string, Material>();

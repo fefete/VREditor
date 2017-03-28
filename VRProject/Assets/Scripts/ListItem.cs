@@ -3,7 +3,8 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class ListItem : MonoBehaviour, IVRInteractuable {
+public class ListItem : MonoBehaviour, IVRInteractuable
+{
 
     public string assetName;
     public ScrollView scview;
@@ -13,22 +14,29 @@ public class ListItem : MonoBehaviour, IVRInteractuable {
     public void LateUpdate()
     {
         Vector2 vec2ScreenPoint = new Vector2(transform.position.x, transform.position.y);
-        if (RectTransformUtility.RectangleContainsScreenPoint(scview.GetComponent<RectTransform>(), vec2ScreenPoint)) {
-            GetComponent<BoxCollider>().enabled = true;
-
-        }
-        else
+        if (scview)
         {
-            GetComponent<BoxCollider>().enabled = false;
+            if (RectTransformUtility.RectangleContainsScreenPoint(scview.GetComponent<RectTransform>(), vec2ScreenPoint))
+            {
+                GetComponent<BoxCollider>().enabled = true;
+
+            }
+            else
+            {
+                GetComponent<BoxCollider>().enabled = false;
+            }
         }
 
     }
 
-    public void onGazeIn() {
+    public void onGazeIn()
+    {
     }
-    public void onGazeOver() {
+    public void onGazeOver()
+    {
     }
-    public void onGazeOut() {
+    public void onGazeOut()
+    {
 
     }
 
