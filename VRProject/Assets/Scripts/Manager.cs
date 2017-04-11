@@ -24,6 +24,8 @@ public class Manager : MonoBehaviour
     public GameObject prefab_selection_ui_;
     public GameObject keyboard_ui_;
 
+    public GameObject user_;
+
     public Dictionary<string, GameObject> prefab_dict;
     public Dictionary<string, Material> mat_dict;
     public string[] scenes_dict;
@@ -85,6 +87,11 @@ public class Manager : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.H))
         {
             ExportChanges();
+        }
+        if (Input.GetButton("Fire3"))
+        {
+            obj_in_use.transform.position = user_.transform.position;
+            pos.newValues(new Vector3(user_.transform.position.x, user_.transform.position.y, user_.transform.position.z));
         }
     }
 
