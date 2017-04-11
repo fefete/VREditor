@@ -53,7 +53,7 @@ public class KeyboardItem : MonoBehaviour, IVRInteractuable {
             f.text = f.text.Insert(f.text.Length, ".");
 
         }
-        else if (value == "-")
+        else if (value == "minus")
         {
             f.text = f.text.Insert(0, "-");
         }

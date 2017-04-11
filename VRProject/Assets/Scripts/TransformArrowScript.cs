@@ -7,6 +7,7 @@ public class TransformArrowScript : MonoBehaviour, IVRInteractuable {
 
     private bool gaze_in;
     private double timer;
+    public short sign;
 	// Use this for initialization
 	void Start () {
         if (GetComponentInParent<ArrowDataManager>()) {
@@ -25,7 +26,6 @@ public class TransformArrowScript : MonoBehaviour, IVRInteractuable {
         GetComponent<Image>().material = GetComponentInParent<ArrowDataManager>().onInMaterial;
 
         Debug.Log("GAZE IN");
-        EventSystem.current.SetSelectedGameObject(gameObject.transform.parent.gameObject);
         gaze_in = true;
 
     }
@@ -38,7 +38,13 @@ public class TransformArrowScript : MonoBehaviour, IVRInteractuable {
             GetComponent<Image>().material = GetComponentInParent<ArrowDataManager>().onOverMaterial;
             string t = GetComponentInParent<ArrowDataManager>().modifier.GetComponent<InputField>().text;
             float f1 = float.Parse(t);
-            f1 += Time.deltaTime;
+            if (sign >= 0)
+            {
+                f1 += Time.deltaTime;
+            }
+            else {
+                f1 -= Time.deltaTime;
+            }
             GetComponentInParent<ArrowDataManager>().modifier.GetComponent<InputField>().text = f1.ToString();
         }
         else
@@ -50,7 +56,6 @@ public class TransformArrowScript : MonoBehaviour, IVRInteractuable {
     {
         Debug.Log("GAZE OUT");
         GetComponent<Image>().material = GetComponentInParent<ArrowDataManager>().onOutMaterial;
- 
         gaze_in = false;
         timer = 0.0f;
     }

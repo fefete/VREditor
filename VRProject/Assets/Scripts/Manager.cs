@@ -90,8 +90,11 @@ public class Manager : MonoBehaviour
         }
         if (Input.GetButton("Fire3"))
         {
-            obj_in_use.transform.position = user_.transform.position;
-            pos.newValues(new Vector3(user_.transform.position.x, user_.transform.position.y, user_.transform.position.z));
+            if (obj_in_use)
+            {
+                obj_in_use.transform.position = user_.transform.position;
+                pos.newValues(new Vector3(user_.transform.position.x, user_.transform.position.y, user_.transform.position.z));
+            }
         }
     }
 
@@ -276,11 +279,13 @@ public class Manager : MonoBehaviour
 
     }
 
-    public void ExportChanges() {
+    public void ExportChanges()
+    {
         JsonData[] finalJson = new JsonData[changelog.Count];
         finalJson.Initialize();
         int counter = 0;
-        foreach (KeyValuePair<int, JsonData> item in changelog) {
+        foreach (KeyValuePair<int, JsonData> item in changelog)
+        {
             finalJson[counter] = item.Value;
             counter++;
         }
@@ -291,4 +296,3 @@ public class Manager : MonoBehaviour
         System.IO.File.WriteAllText(Application.dataPath + "/exportData.txt", toJson);
     }
 }
-    
