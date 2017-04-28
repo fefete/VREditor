@@ -14,9 +14,8 @@ public class ScrollView : MonoBehaviour {
 
      void OnEnable()
      {
-        //InitializeList();
-        //check this for icon http://answers.unity3d.com/questions/234147/editor-gui-object-preview-icon.html  AssetPreview.GetAssetPreview(Object obj)
-    }
+
+     }
 
 
 

@@ -23,6 +23,7 @@ public class Manager : MonoBehaviour
     public GameObject scene_selection_ui_;
     public GameObject prefab_selection_ui_;
     public GameObject keyboard_ui_;
+    public GameObject help_ui_;
 
     public GameObject user_;
 
@@ -52,6 +53,7 @@ public class Manager : MonoBehaviour
         prefab_selection_ui_.SetActive(false);
         mat_selection_ui_.SetActive(false);
         scene_selection_ui_.SetActive(true);
+        help_ui_.SetActive(true);
 
     }
 
@@ -84,9 +86,19 @@ public class Manager : MonoBehaviour
         {
             removeObject();
         }
-        if (Input.GetKeyDown(KeyCode.H) || Input.GetButton("ExportChanges"))
+        if (Input.GetKeyDown(KeyCode.H) || Input.GetButtonDown("ExportChanges"))
         {
             ExportChanges();
+        }
+        if (Input.GetButtonDown("OpenHelp"))
+        {
+            if (help_ui_.activeSelf)
+            {
+                help_ui_.SetActive(false);
+            }
+            else {
+                help_ui_.SetActive(true);
+            }
         }
         if (Input.GetButton("Fire3"))
         {
@@ -158,6 +170,7 @@ public class Manager : MonoBehaviour
     {
         scene_selection_ui_.SetActive(false);
         prefab_selection_ui_.SetActive(true);
+        //help_ui_.SetActive(false);
         SceneManager.LoadScene(scene);
     }
     //"/AssetBundles/assetstoimport"
