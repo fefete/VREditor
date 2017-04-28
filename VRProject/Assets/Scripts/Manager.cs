@@ -84,7 +84,7 @@ public class Manager : MonoBehaviour
         {
             removeObject();
         }
-        if (Input.GetKeyDown(KeyCode.H))
+        if (Input.GetKeyDown(KeyCode.H) || Input.GetButton("ExportChanges"))
         {
             ExportChanges();
         }
@@ -100,7 +100,6 @@ public class Manager : MonoBehaviour
 
     public void removeObject()
     {
-
         obj_in_use = null;
         pos.newValues(new Vector3(0, 0, 0));
         rot.newValues(new Vector3(0, 0, 0));
@@ -127,7 +126,6 @@ public class Manager : MonoBehaviour
     public GameObject getObject()
     {
         return obj_in_use;
-
     }
 
     public static Manager getInstance()
@@ -144,7 +142,6 @@ public class Manager : MonoBehaviour
 
         // name =! string.empty == new object
         changelog[go.GetInstanceID()].obj_name = obj;
-
     }
 
     public void changeMaterialToCurrentObject(string mat_name)
@@ -155,7 +152,6 @@ public class Manager : MonoBehaviour
             createEntryInChangelog(obj_in_use);
         }
         changelog[obj_in_use.GetInstanceID()].mat_name = mat_name;
-
     }
 
     public void loadScene(string scene)
@@ -172,7 +168,6 @@ public class Manager : MonoBehaviour
 
         print("Loading");
 
-
         //waiting for completion
         yield return www;
         if (!string.IsNullOrEmpty(www.error))
@@ -182,7 +177,6 @@ public class Manager : MonoBehaviour
         }
 
         myLoadedBundle = www.assetBundle;
-
 
         if (type == "prefab")
         {
@@ -236,7 +230,6 @@ public class Manager : MonoBehaviour
 
         temp.mat_name = string.Empty;
         temp.obj_name = string.Empty;
-
     }
 
     public void updateObjInUsePos(Vector3 newpos)
@@ -249,7 +242,6 @@ public class Manager : MonoBehaviour
         changelog[obj_in_use.GetInstanceID()].t_x = newpos.x;
         changelog[obj_in_use.GetInstanceID()].t_y = newpos.y;
         changelog[obj_in_use.GetInstanceID()].t_z = newpos.z;
-
 
     }
     public void updateObjInUseRot(Vector3 newRot)
@@ -275,8 +267,6 @@ public class Manager : MonoBehaviour
         changelog[obj_in_use.GetInstanceID()].s_x = newSca.x;
         changelog[obj_in_use.GetInstanceID()].s_y = newSca.y;
         changelog[obj_in_use.GetInstanceID()].s_z = newSca.z;
-
-
     }
 
     public void ExportChanges()
