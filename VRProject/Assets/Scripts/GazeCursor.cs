@@ -4,11 +4,13 @@ using UnityEngine;
 
 public class GazeCursor : MonoBehaviour
 {
-    //static GazeCursor instance = null;
+    //Camera to raycast from
     public Camera viewCamera;
+    //max distance of the cursor
     public float maxCursorDistance = 30;
+    //physical representation for the cursor
     public GameObject cursorInstance;
-
+    //gameobject currently being looked
     public GameObject objLookingAt = null;
 
     // Use this for initialization
@@ -16,6 +18,10 @@ public class GazeCursor : MonoBehaviour
     void Update()
     {
         UpdateCursor();
+        /*if the object is not null, we are going to get the tag of the object,
+         * and if it has one of the classes that are supposed to be vr interactuable
+         * we use the methods implemented in the IVRInractuableItem interface
+         */
         if (objLookingAt != null)
         {
             if (objLookingAt.CompareTag("Inspector"))
@@ -42,12 +48,14 @@ public class GazeCursor : MonoBehaviour
         {
             if (objLookingAt != null)
             {
+                //if the layer is not the UI layer, we directly set the object in the manager as the current object being inspected.
                 if (objLookingAt.layer != 5)
                 {
                     Manager.getInstance().setObject(objLookingAt);
                 }
                 else
                 {
+                    //if is an UI element, we do other things, depending of the tag
                     if (objLookingAt.CompareTag("Inspector"))
                     {
                         Manager.getInstance().inspectorArrow.SetActive(true);
@@ -69,9 +77,11 @@ public class GazeCursor : MonoBehaviour
                 }
             }
         }
+       
         Ray ray = new Ray(viewCamera.transform.position, viewCamera.transform.rotation * Vector3.forward);
         RaycastHit hit;
         LayerMask layer = ~LayerMask.NameToLayer("UI");
+        //as the UI is going to be always before everything else, we first get if there's an object in the UI layer that we can collide with
         if (Physics.Raycast(ray, out hit, Mathf.Infinity, layer))
         {
             cursorInstance.transform.position = hit.point;
@@ -96,11 +106,13 @@ public class GazeCursor : MonoBehaviour
 
             }
         }
+        //if there's no UI element, we try to get whatever element we can collide
         else if (Physics.Raycast(ray, out hit, Mathf.Infinity))
         {
             cursorInstance.transform.position = hit.point;
             objLookingAt = hit.collider.gameObject;
         }
+        //if we don't hit anything but we have an object currently being used, we need to call the method of the interface if is UI, if not, nothing
         else
         {
             if (objLookingAt != null)

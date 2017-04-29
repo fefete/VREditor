@@ -80,8 +80,6 @@ public class ScrollView : MonoBehaviour {
         newItem.GetComponentInChildren<ListItem>().type = type;
 
         newItem.SetActive(true);
-
-
     }
 
     private IEnumerator MoveTowardsTarget(float time, float from, float target)

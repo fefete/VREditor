@@ -14,28 +14,35 @@ public class Manager : MonoBehaviour
     public string prefab_bundle_name;
     public string scene_bundle_name;
 
+    //data collectors for displaying info in the UI inspector
     public UpdateCollector pos;
     public UpdateCollector rot;
     public UpdateCollector sca;
 
+    // UI elements reference in unity
     public GameObject inspector_ui_;
     public GameObject mat_selection_ui_;
     public GameObject scene_selection_ui_;
     public GameObject prefab_selection_ui_;
     public GameObject keyboard_ui_;
 
+    //the user gameobject for position tracking purposes
     public GameObject user_;
 
+    //Dictionary containing the needed data for the editor to get data
     public Dictionary<string, GameObject> prefab_dict;
     public Dictionary<string, Material> mat_dict;
     public string[] scenes_dict;
+
+    //changelog for the 
     public Dictionary<int, JsonData> changelog;
 
+    //scrollviews to show data.
     public ScrollView prefabDataShowing;
     public ScrollView sceneDataShowing;
     public ScrollView materialDataShowing;
 
-
+    //assetbundle to use for the app
     AssetBundle myLoadedBundle;
 
     public Camera UiCamera;
@@ -46,7 +53,7 @@ public class Manager : MonoBehaviour
 
     private void Start()
     {
-        //removeObject();
+        //initialize the UI flow.
         inspector_ui_.SetActive(false);
         keyboard_ui_.SetActive(false);
         prefab_selection_ui_.SetActive(false);
@@ -57,8 +64,10 @@ public class Manager : MonoBehaviour
 
     void Awake()
     {
+        //make the manager a singleton
         if (instance == null)
         {
+            //load the assetbundles
             Caching.CleanCache();
             DontDestroyOnLoad(this);
             prefab_dict = new Dictionary<string, GameObject>();
@@ -79,15 +88,17 @@ public class Manager : MonoBehaviour
 
     void Update()
     {
-
+        //remove the current object to get another
         if (Input.GetButton("Fire2"))
         {
             removeObject();
         }
+        //export the changes into a Json file
         if (Input.GetKeyDown(KeyCode.H))
         {
             ExportChanges();
         }
+        //put an object in the position of the player
         if (Input.GetButton("Fire3"))
         {
             if (obj_in_use)
@@ -275,7 +286,6 @@ public class Manager : MonoBehaviour
         changelog[obj_in_use.GetInstanceID()].s_x = newSca.x;
         changelog[obj_in_use.GetInstanceID()].s_y = newSca.y;
         changelog[obj_in_use.GetInstanceID()].s_z = newSca.z;
-
 
     }
 
