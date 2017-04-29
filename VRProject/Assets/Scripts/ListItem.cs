@@ -31,9 +31,11 @@ public class ListItem : MonoBehaviour, IVRInteractuable
 
     public void onGazeIn()
     {
+
     }
     public void onGazeOver()
     {
+
     }
     public void onGazeOut()
     {
@@ -46,6 +48,7 @@ public class ListItem : MonoBehaviour, IVRInteractuable
         if (type == "prefab")
         {
             Manager.getInstance().spawnObject(assetName);
+
         }
         else if (type == "material")
         {
@@ -54,7 +57,6 @@ public class ListItem : MonoBehaviour, IVRInteractuable
         }
         else if (type == "scenes")
         {
-
             Manager.getInstance().loadScene(assetName);
 
         }

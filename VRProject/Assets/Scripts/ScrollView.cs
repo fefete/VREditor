@@ -14,9 +14,8 @@ public class ScrollView : MonoBehaviour {
 
      void OnEnable()
      {
-        //InitializeList();
-        //check this for icon http://answers.unity3d.com/questions/234147/editor-gui-object-preview-icon.html  AssetPreview.GetAssetPreview(Object obj)
-    }
+
+     }
 
 
 
@@ -73,7 +72,8 @@ public class ScrollView : MonoBehaviour {
         newItem.transform.localScale = Vector3.one;
 
         newItem.GetComponent<Image>().enabled = true;
-        newItem.GetComponentInChildren<Text>(true).text = name;
+        string[] n = name.Split('/');
+        newItem.GetComponentInChildren<Text>(true).text = n[n.Length - 1];
         newItem.GetComponentInChildren<Text>().enabled = true;
         newItem.GetComponentInChildren<ListItem>().scview = this;
         newItem.GetComponentInChildren<ListItem>().assetName = name;
