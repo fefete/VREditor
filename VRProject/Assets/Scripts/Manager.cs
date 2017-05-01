@@ -170,7 +170,6 @@ public class Manager : MonoBehaviour
     {
         scene_selection_ui_.SetActive(false);
         prefab_selection_ui_.SetActive(true);
-        //help_ui_.SetActive(false);
         SceneManager.LoadScene(scene);
     }
     //"/AssetBundles/assetstoimport"

@@ -18,7 +18,6 @@ public class ScrollView : MonoBehaviour {
      }
 
 
-
     private void ClearOldElements()
     {
         for(int i = 0; i< glgroup.transform.childCount; i++)

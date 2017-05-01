@@ -49,8 +49,7 @@ public class ImportFile : MonoBehaviour
                     }
                 }
                 listCounter++;
-            }
-            else {
+            }else {
                 GameObject temp = (GameObject)AssetDatabase.LoadAssetAtPath("Assets/Content/Prefabs/" + data.obj_name + ".prefab", typeof(GameObject));
                 Debug.Log(temp);
                 GameObject temp2 = GameObject.Instantiate(temp);

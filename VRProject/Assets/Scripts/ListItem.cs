@@ -28,7 +28,7 @@ public class ListItem : MonoBehaviour, IVRInteractuable
         }
 
     }
-
+    //VRINTERACTUABLE FUNCTIONS
     public void onGazeIn()
     {
 
