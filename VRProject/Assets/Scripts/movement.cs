@@ -5,7 +5,9 @@ using UnityEngine;
 public class movement : MonoBehaviour {
 
     // Use this for initialization
-    public float keySpeed = 10;
+    public float slowkeySpeed = 10;
+    public float FastkeySpeed = 20;
+    private float keySpeed;
     public float mouseSpeed = 1.25f;
     public GameObject eye;
     static movement instance = null;
@@ -22,6 +24,7 @@ public class movement : MonoBehaviour {
             Cursor.lockState = CursorLockMode.Locked;
             Cursor.visible = false;
             originalRotation = transform.localRotation;
+            keySpeed = slowkeySpeed;
 
         }
         else if (instance != this)
@@ -30,9 +33,18 @@ public class movement : MonoBehaviour {
         }
 
     }
-	
-	// Update is called once per frame
-	void Update () {
+
+    // Update is called once per frame
+    void Update() {
+
+        if (Input.GetButton("Run"))
+        {
+            keySpeed = FastkeySpeed;
+        }
+        else {
+            keySpeed = slowkeySpeed;
+        }
+
         if (Input.GetAxis("Horizontal") < 0)
         {
             Strafe(-keySpeed * Time.deltaTime);
@@ -69,12 +81,12 @@ public class movement : MonoBehaviour {
         angle += dist;
 
         angle.x = ClampAngle(angle.x, minAngle.x, maxAngle.x);
-        angle.y = ClampAngle(angle.y, minAngle.y, maxAngle.y);
+        //angle.y = ClampAngle(angle.y, minAngle.y, maxAngle.y);
 
         Quaternion quatX = Quaternion.AngleAxis(angle.x, Vector3.up);
-        Quaternion quatY = Quaternion.AngleAxis(angle.y, -Vector3.right);
+        //Quaternion quatY = Quaternion.AngleAxis(angle.y, -Vector3.right);
 
-        transform.localRotation = originalRotation * quatX * quatY;
+        transform.localRotation = originalRotation * quatX;// * quatY;
     }
 
     float ClampAngle(float angle, float min, float max)
