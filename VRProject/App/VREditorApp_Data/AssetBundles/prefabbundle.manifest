@@ -1,0 +1,51 @@
+ManifestFileVersion: 0
+CRC: 3761524840
+Hashes:
+  AssetFileHash:
+    serializedVersion: 2
+    Hash: d383721c2037f2da6481e4d1ab8b452e
+  TypeTreeHash:
+    serializedVersion: 2
+    Hash: 7915d4bc048333b05aa26039037992f1
+HashAppended: 0
+ClassTypes:
+- Class: 1
+  Script: {instanceID: 0}
+- Class: 4
+  Script: {instanceID: 0}
+- Class: 21
+  Script: {instanceID: 0}
+- Class: 23
+  Script: {instanceID: 0}
+- Class: 28
+  Script: {instanceID: 0}
+- Class: 33
+  Script: {instanceID: 0}
+- Class: 43
+  Script: {instanceID: 0}
+- Class: 48
+  Script: {instanceID: 0}
+- Class: 64
+  Script: {instanceID: 0}
+- Class: 65
+  Script: {instanceID: 0}
+- Class: 108
+  Script: {instanceID: 0}
+- Class: 111
+  Script: {instanceID: 0}
+- Class: 114
+  Script: {fileID: 11500000, guid: 148ebe572876ffd4b83d87e6c44cbbfb, type: 3}
+- Class: 115
+  Script: {instanceID: 0}
+- Class: 121
+  Script: {instanceID: 0}
+Assets:
+- Assets/Content/Prefabs/Red.prefab
+- Assets/Content/Prefabs/WorldObject_Bin (6).prefab
+- Assets/Content/Prefabs/WorldObject_MilCrate.prefab
+- Assets/Content/Prefabs/Green.prefab
+- Assets/Content/Prefabs/RadioTower/Prefab/RadioTower.prefab
+- Assets/Content/Prefabs/Yellow.prefab
+- Assets/Content/Prefabs/WorldObject_Barricade.prefab
+Dependencies:
+- C:/Users/s6098981/Documents/VREditor/VRProject/Assets/AssetBundles/materialbundle

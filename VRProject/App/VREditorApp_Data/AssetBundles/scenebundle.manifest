@@ -1,0 +1,17 @@
+ManifestFileVersion: 0
+CRC: 627762833
+Hashes:
+  AssetFileHash:
+    serializedVersion: 2
+    Hash: f1aaf53addd746272069765601031121
+  TypeTreeHash:
+    serializedVersion: 2
+    Hash: 31d6cfe0d16ae931b73c59d7e0c089c0
+HashAppended: 0
+ClassTypes: []
+Assets:
+- Assets/Content/scenes/testscene.unity
+- Assets/Content/scenes/DownTownBlockout.unity
+Dependencies:
+- C:/Users/s6098981/Documents/VREditor/VRProject/Assets/AssetBundles/materialbundle
+- C:/Users/s6098981/Documents/VREditor/VRProject/Assets/AssetBundles/prefabbundle

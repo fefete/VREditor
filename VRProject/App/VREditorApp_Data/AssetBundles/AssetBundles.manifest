@@ -1,0 +1,16 @@
+ManifestFileVersion: 0
+CRC: 1995792712
+AssetBundleManifest:
+  AssetBundleInfos:
+    Info_0:
+      Name: scenebundle
+      Dependencies:
+        Dependency_0: materialbundle
+        Dependency_1: prefabbundle
+    Info_1:
+      Name: materialbundle
+      Dependencies: {}
+    Info_2:
+      Name: prefabbundle
+      Dependencies:
+        Dependency_0: materialbundle
