@@ -3,7 +3,7 @@ CRC: 3761524840
 Hashes:
   AssetFileHash:
     serializedVersion: 2
-    Hash: 071be911094c4ec31615a6d4c7209958
+    Hash: d383721c2037f2da6481e4d1ab8b452e
   TypeTreeHash:
     serializedVersion: 2
     Hash: 7915d4bc048333b05aa26039037992f1
@@ -48,4 +48,4 @@ Assets:
 - Assets/Content/Prefabs/Yellow.prefab
 - Assets/Content/Prefabs/WorldObject_Barricade.prefab
 Dependencies:
-- C:/Users/metra/Documents/VREditorRepo/VRProject/Assets/AssetBundles/materialbundle
+- C:/Users/s6098981/Documents/VREditor/VRProject/Assets/AssetBundles/materialbundle

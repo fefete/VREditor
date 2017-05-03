@@ -105,7 +105,9 @@ public class Manager : MonoBehaviour
             if (obj_in_use)
             {
                 obj_in_use.transform.position = user_.transform.position;
-                pos.newValues(new Vector3(user_.transform.position.x, user_.transform.position.y, user_.transform.position.z));
+                pos.newValues(new Vector3(obj_in_use.transform.localPosition.x, obj_in_use.transform.localPosition.y, obj_in_use.transform.localPosition.z));
+                rot.newValues(new Vector3(obj_in_use.transform.localRotation.x, obj_in_use.transform.localRotation.y, obj_in_use.transform.localRotation.z));
+                sca.newValues(new Vector3(obj_in_use.transform.localScale.x, obj_in_use.transform.localScale.y, obj_in_use.transform.localScale.z));
             }
         }
     }
@@ -125,8 +127,8 @@ public class Manager : MonoBehaviour
     public void setObject(GameObject obj)
     {
         obj_in_use = obj;
-        pos.newValues(obj_in_use.transform.position);
-        rot.newValues(obj_in_use.transform.rotation.eulerAngles);
+        pos.newValues(obj_in_use.transform.localPosition);
+        rot.newValues(obj_in_use.transform.localRotation.eulerAngles);
         sca.newValues(obj_in_use.transform.localScale);
         keyboard_ui_.SetActive(true);
         inspector_ui_.SetActive(true);
@@ -151,7 +153,6 @@ public class Manager : MonoBehaviour
         removeObject();
         setObject(go);
         createEntryInChangelog(go);
-
         // name =! string.empty == new object
         changelog[go.GetInstanceID()].obj_name = obj;
     }
@@ -224,17 +225,17 @@ public class Manager : MonoBehaviour
         JsonData temp = new JsonData();
         changelog[obj.GetInstanceID()] = temp;
 
-        temp.old_x = obj.transform.position.x;
-        temp.old_y = obj.transform.position.y;
-        temp.old_z = obj.transform.position.z;
+        temp.old_x = obj.transform.localPosition.x;
+        temp.old_y = obj.transform.localPosition.y;
+        temp.old_z = obj.transform.localPosition.z;
 
-        temp.t_x = obj.transform.position.x;
-        temp.t_y = obj.transform.position.y;
-        temp.t_z = obj.transform.position.z;
+        temp.t_x = obj.transform.localPosition.x;
+        temp.t_y = obj.transform.localPosition.y;
+        temp.t_z = obj.transform.localPosition.z;
 
-        temp.r_x = obj.transform.rotation.x;
-        temp.r_y = obj.transform.rotation.y;
-        temp.r_z = obj.transform.rotation.z;
+        temp.r_x = obj.transform.localRotation.x;
+        temp.r_y = obj.transform.localRotation.y;
+        temp.r_z = obj.transform.localRotation.z;
 
         temp.s_x = obj.transform.localScale.x;
         temp.s_y = obj.transform.localScale.y;
@@ -246,11 +247,11 @@ public class Manager : MonoBehaviour
 
     public void updateObjInUsePos(Vector3 newpos)
     {
-        obj_in_use.transform.position = newpos;
         if (!changelog.ContainsKey(obj_in_use.GetInstanceID()))
         {
             createEntryInChangelog(obj_in_use);
         }
+        obj_in_use.transform.localPosition = newpos;
         changelog[obj_in_use.GetInstanceID()].t_x = newpos.x;
         changelog[obj_in_use.GetInstanceID()].t_y = newpos.y;
         changelog[obj_in_use.GetInstanceID()].t_z = newpos.z;
@@ -258,11 +259,11 @@ public class Manager : MonoBehaviour
     }
     public void updateObjInUseRot(Vector3 newRot)
     {
-        obj_in_use.transform.rotation = Quaternion.Euler(newRot);
         if (!changelog.ContainsKey(obj_in_use.GetInstanceID()))
         {
             createEntryInChangelog(obj_in_use);
         }
+        obj_in_use.transform.localRotation = Quaternion.Euler(newRot);
         changelog[obj_in_use.GetInstanceID()].r_x = newRot.x;
         changelog[obj_in_use.GetInstanceID()].r_y = newRot.y;
         changelog[obj_in_use.GetInstanceID()].r_z = newRot.z;
@@ -271,11 +272,11 @@ public class Manager : MonoBehaviour
     }
     public void updateObjInUseSca(Vector3 newSca)
     {
-        obj_in_use.transform.localScale = newSca;
         if (!changelog.ContainsKey(obj_in_use.GetInstanceID()))
         {
             createEntryInChangelog(obj_in_use);
         }
+        obj_in_use.transform.localScale = newSca;
         changelog[obj_in_use.GetInstanceID()].s_x = newSca.x;
         changelog[obj_in_use.GetInstanceID()].s_y = newSca.y;
         changelog[obj_in_use.GetInstanceID()].s_z = newSca.z;

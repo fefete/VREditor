@@ -16,10 +16,11 @@ public class ImportFile : MonoBehaviour
         //first pass, taking the old objects and disabling them, in order to move them in a later stage
         foreach (JsonData data in objects)
         {
-            if (data.obj_name == "") {
+            if (data.obj_name == "")
+            {
                 //existing object
                 Vector3 oldPos = Vector3.zero;
-                float radius = (2.0f);
+                float radius = (1.0f);
                 oldPos = new Vector3(data.old_x, data.old_y, data.old_z);
                 Collider[] objsInSphere = Physics.OverlapSphere(oldPos, radius);
                 if (objsInSphere.Length > 0)
@@ -41,16 +42,24 @@ public class ImportFile : MonoBehaviour
                 p[listCounter].transform.position = new Vector3(data.t_x, data.t_y, data.t_z);
                 p[listCounter].transform.rotation = Quaternion.Euler(new Vector3(data.r_x, data.r_y, data.r_z));
                 p[listCounter].transform.localScale = new Vector3(data.s_x, data.s_y, data.s_z);
-                if (data.mat_name != "") {
+                if (data.mat_name != "")
+                {
                     //change material
                     Material m = (Material)AssetDatabase.LoadAssetAtPath("Assets/Content/Materials/" + data.mat_name + ".mat", typeof(Material));
-                    if (m) {
+                    if (m)
+                    {
                         p[listCounter].GetComponent<Renderer>().material = m;
                     }
                 }
                 listCounter++;
-            }else {
-                GameObject temp = (GameObject)AssetDatabase.LoadAssetAtPath("Assets/Content/Prefabs/" + data.obj_name + ".prefab", typeof(GameObject));
+            }
+            else
+            {
+                string[] path = System.IO.Directory.GetDirectories(Application.dataPath, data.obj_name, System.IO.SearchOption.AllDirectories);
+                GameObject temp = null;
+                string potatostring = "Assets/Content/Prefabs/" + data.obj_name + ".prefab";
+                temp = (GameObject)AssetDatabase.LoadAssetAtPath(potatostring, typeof(GameObject));
+
                 Debug.Log(temp);
                 GameObject temp2 = GameObject.Instantiate(temp);
                 temp2.SetActive(true);
