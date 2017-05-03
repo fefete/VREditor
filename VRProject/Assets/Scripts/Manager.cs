@@ -255,7 +255,6 @@ public class Manager : MonoBehaviour
         changelog[obj_in_use.GetInstanceID()].t_x = newpos.x;
         changelog[obj_in_use.GetInstanceID()].t_y = newpos.y;
         changelog[obj_in_use.GetInstanceID()].t_z = newpos.z;
-
     }
     public void updateObjInUseRot(Vector3 newRot)
     {

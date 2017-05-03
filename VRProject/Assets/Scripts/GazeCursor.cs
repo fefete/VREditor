@@ -77,7 +77,7 @@ public class GazeCursor : MonoBehaviour
                 }
             }
         }
-       
+
         Ray ray = new Ray(viewCamera.transform.position, viewCamera.transform.rotation * Vector3.forward);
         RaycastHit hit;
         LayerMask layer = ~LayerMask.NameToLayer("UI");
@@ -85,6 +85,11 @@ public class GazeCursor : MonoBehaviour
         if (Physics.Raycast(ray, out hit, Mathf.Infinity, layer))
         {
             cursorInstance.transform.position = hit.point;
+            if (hit.collider.gameObject != objLookingAt)
+            {
+                callOnGazeOut();
+            }
+
             objLookingAt = hit.collider.gameObject;
             if (objLookingAt.CompareTag("Inspector"))
             {
@@ -109,37 +114,44 @@ public class GazeCursor : MonoBehaviour
         //if there's no UI element, we try to get whatever element we can collide
         else if (Physics.Raycast(ray, out hit, Mathf.Infinity))
         {
+            if (hit.collider.gameObject != objLookingAt)
+            {
+                callOnGazeOut();
+            }
             cursorInstance.transform.position = hit.point;
             objLookingAt = hit.collider.gameObject;
         }
         //if we don't hit anything but we have an object currently being used, we need to call the method of the interface if is UI, if not, nothing
         else
         {
-            if (objLookingAt != null)
-            {
-                if (objLookingAt.CompareTag("Inspector"))
-                {
-                    objLookingAt.GetComponent<InspectorItem>().onGazeOut();
-
-                }
-                else if (objLookingAt.CompareTag("Selector"))
-                {
-                    objLookingAt.GetComponent<ListItem>().onGazeOut();
-
-                }
-                else if (objLookingAt.CompareTag("TransformArrows"))
-                {
-                    objLookingAt.GetComponent<TransformArrowScript>().onGazeOut();
-
-                }
-                else if (objLookingAt.CompareTag("KeyboardItem"))
-                {
-                    objLookingAt.GetComponent<KeyboardItem>().onGazeOut();
-
-                }
-            }
+            callOnGazeOut();
             cursorInstance.transform.position = ray.origin + ray.direction.normalized * maxCursorDistance;
-            objLookingAt = null;
+        }
+
+    }
+
+    private void callOnGazeOut()
+    {
+        if (objLookingAt != null)
+        {
+            if (objLookingAt.CompareTag("Inspector"))
+            {
+                objLookingAt.GetComponent<InspectorItem>().onGazeOut();
+
+            }
+            else if (objLookingAt.CompareTag("Selector"))
+            {
+                objLookingAt.GetComponent<ListItem>().onGazeOut();
+
+            }
+            else if (objLookingAt.CompareTag("TransformArrows"))
+            {
+                objLookingAt.GetComponent<TransformArrowScript>().onGazeOut();
+            }
+            else if (objLookingAt.CompareTag("KeyboardItem"))
+            {
+                objLookingAt.GetComponent<KeyboardItem>().onGazeOut();
+            }
         }
     }
 }
